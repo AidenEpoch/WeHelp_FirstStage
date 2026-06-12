@@ -1,0 +1,198 @@
+
+.mainContent{
+    width: 1200px;
+    padding-top: 20px;
+    margin: 0 auto;
+}
+
+.bar{
+    height: 50px;
+    align-items: center;
+    display: flex;
+    background: #b8cce4;
+}
+
+.bars{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.barword{
+    text-align: center;
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+.bar1{
+    width: 100%;
+}
+
+.bar2{
+    width: calc((100% - 20px) * 2 / 3);
+}
+
+.bar3{
+    width: calc((100% - 20px) * 1 / 3);
+}
+
+.row1{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.row2{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.contentImage{
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    display: block;
+}
+
+.bar img{
+    object-fit: cover;
+}
+
+.contentImage img{
+    object-fit:cover;
+    width: 100%;
+    object-position: center center;
+}
+
+.block1{
+    flex: 2;
+}
+
+.block{
+     flex: 1;
+}
+
+.block2{
+     flex: 1;
+}
+
+.block4{
+     flex: 1;
+}
+
+.block3{
+    display: none;
+}
+
+.block5{
+    display: none;
+}
+
+.star{
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 22px;
+    color: gold;
+    opacity: 0.7;
+}
+
+.caption{
+    position: absolute;
+    bottom: 0px;
+    background-color: rgba(192, 226, 232, 0.6);
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    display: flex;
+}
+
+.capWord{
+    text-align: center;
+    color: black;
+    font-size: 20px;
+}
+
+.row3{
+    display: none;
+    gap: 20px;
+    display: flex;
+}
+
+@media (max-width: 1200px) {
+    .mainContent{
+        width: 90%;
+    }
+    .bar1{
+        flex: 1;
+    }
+    .bar2{
+        flex: 1;
+    }
+    .bar3{
+        width: 100%;
+    }
+
+    .block4{
+        display: none;
+    }
+
+    .block5{
+        display: block;
+        flex: 1;
+    }
+    .row3{
+        display: flex;
+    }
+    .block{
+        flex: 1;
+    }
+    .block1{
+        flex: 1;
+    }
+    .block2{
+        display: none;
+    }
+    .block3{
+        flex: 1;
+        display: block;
+    }
+
+}
+
+@media (max-width: 600px) {
+    .bar1{
+        flex: none;
+        width: 100%;
+    }
+    .bar2{
+        flex: none;
+        width: 100%;
+    }
+    .bar3{
+        flex: none;
+        width: 100%;
+    }
+
+    .block{
+        width: 100%;
+        flex:none;
+    }
+    .block1{
+        width: 100%;
+        flex:none;
+    }
+    .block2{
+        width: 100%;
+        flex:none;
+        display: block;
+    }
+    .block3{
+        display: none;
+    }
+}
