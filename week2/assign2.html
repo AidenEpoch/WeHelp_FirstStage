@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        console.log("=== Task1 ===")
+        function func1(name){
+            let character = {
+                "name" : ["悟空", "辛巴", "丁滿", "貝吉塔", "特南克斯", "弗利沙"],
+                x: [0, -3, -1, -4, 1, 4],
+                y: [0, 3, 4, -1, -2, -1],
+                position: [-1, -1, -1, -1, -1, -1]
+            };
+            let distance = [];
+            let upper = [];
+            let lower = [];
+            /*線的方程式大概是: 5x + 4y = 7*/
+            for(let i = 0; i < character.name.length; i++){
+                if(5 * character.x[i] + 4 * character.y[i] <= 7){
+                    lower.push(character.name[i]);
+                    character.position[i] = -1;
+                }else{
+                    upper.push(character.name[i]);
+                    character.position[i] = 1;
+                }
+            }
+            let char_index = 0
+            for(let i = 0; i < character.name.length; i++){
+                if(character.name[i] == name){
+                    char_index = i;
+                }
+            }
+            for(let i = 0; i < character.name.length; i++){
+                let dist = 0;
+                if(character.name[i] == name){
+                    dist = 0;
+                }else{
+                    let dist_x = character.x[i] - character.x[char_index];
+                    let dist_y = character.y[i] - character.y[char_index];
+                    if(dist_x < 0){
+                        dist_x = -dist_x;
+                    }
+                    if(dist_y < 0){
+                        dist_y = -dist_y;
+                    }
+                    if(character.position[char_index] * character.position[i] < 0){
+                        dist = dist_x + dist_y + 2;
+                    }else{
+                        dist = dist_x + dist_y;
+                    }
+                }
+                distance.push(dist);
+            }
+            let maxDist = [];
+            let minDist = [];
+            let max_dist = distance[0];
+            if(character.name[0] == name){
+                max_dist = distance[1];
+            }
+            let min_dist = distance[0];
+            if(character.name[0] == name){
+                min_dist = distance[1];
+            }
+            for(let i = 0; i < distance.length; i++){
+                if(character.name[i] == name){
+                    continue;
+                }
+                if(distance[i] >= max_dist){
+                    max_dist = distance[i];
+                }
+                if(distance[i] <= min_dist){
+                    min_dist = distance[i];
+                }
+            }
+            for(let i = 0; i < distance.length; i++){
+                if(character.name[i] == name){
+                    continue;
+                }
+                if(distance[i] == max_dist){
+                    maxDist.push(character.name[i]);
+                }
+                else if(distance[i] == min_dist){
+                    minDist.push(character.name[i]);
+                }
+            }
+            let showWords = "最遠";
+            for(let i = 0; i < maxDist.length; i++){
+                if(i ==0){
+                    showWords += maxDist[i];
+                }
+                else{
+                    showWords += "、";
+                    showWords += maxDist[i];
+                }
+            }
+            showWords += ";最近";
+            for(let i = 0; i < minDist.length; i++){
+                if(i == 0){
+                    showWords += minDist[i];
+                }else{
+                    showWords += "、";
+                    showWords += minDist[i];
+                }
+            }
+            console.log(showWords);
+        }
+        func1("辛巴"); // print 最遠弗利沙；最近丁滿、貝吉塔
+        func1("悟空"); // print 最遠丁滿、弗利沙；最近特南克斯
+        func1("弗利沙"); // print 最遠辛巴，最近特南克斯
+        func1("特南克斯"); // print 最遠丁滿，最近悟空
+
+
+        console.log("=== Task2 ===");
+        let ss_schedules = {};
+        ss_schedules.S1 = [];
+        ss_schedules.S2 = [];
+        ss_schedules.S3 = [];
+        for(let i = 0; i < 25; i++){
+            ss_schedules.S1[i] = true;
+            ss_schedules.S2[i] = true;
+            ss_schedules.S3[i] = true;
+        }
+        function func2(ss, start, end, criteria){
+            let category = "";
+            let value = "";
+            let op = "";
+            if(criteria[4] == "="){
+                op = "=";
+                category = criteria[0] + criteria[1] + criteria[2] + criteria[3];
+                value = criteria.slice(5);
+            }else if(criteria[1] == ">"){
+                op = ">=";
+                category = criteria[0];
+                value = criteria.slice(3);
+                value = Number(value);
+            }else if(criteria[1] == "<"){
+                op = "<=";
+                category = criteria[0];
+                value = criteria.slice(3);
+                value = Number(value);
+            }
+            let candidates = [];
+            for(let i = 0; i < services.length; i++){
+                let matched = false;
+                if(op == "="){
+                    if(services[i].name == value){
+                        matched = true;
+                    }
+                }else if(op == ">="){
+
+                    if(services[i][category] >= value){
+                        matched = true;
+                    }
+                }else if(op == "<="){
+                    
+                    if(services[i][category] <= value){
+                        matched = true;
+                    }
+                }
+                if(matched == true){
+                    let available = true;
+                    for(let j = start; j < end; j++){
+                        if(ss_schedules[services[i].name][j] == false){
+                            available = false;
+                            break;
+                        }
+                    }
+                    if(available == true){
+                        let pair = {
+                            "name": services[i].name,
+                            "value": services[i][category]
+                        }
+                        candidates.push(pair);
+                    }
+                }
+            }
+
+            if(candidates.length == 0){
+                console.log("Sorry");
+                return;
+            }
+            if(op == ">="){
+                let maxIndex = 0;
+                for(let i = 0; i < candidates.length; i++){
+                    if(candidates[i].value < candidates[maxIndex].value){
+                        maxIndex = i;
+                    }
+                }
+                for(let i = start; i < end; i++){
+                    ss_schedules[candidates[maxIndex].name][i] = false;
+                }
+                console.log(candidates[maxIndex].name);
+            }else if(op == "<="){
+                let minIndex = 0;
+                for(let i = 0; i < candidates.length; i++){
+                    if(candidates[i].value > candidates[minIndex].value){
+                        minIndex = i;
+                    }
+                }
+                for(let i = start; i < end; i++){
+                    ss_schedules[candidates[minIndex].name][i] = false;
+                }
+                console.log(candidates[minIndex].name);
+            }else if(op == "="){
+                for(let i = start; i < end; i++){
+                    ss_schedules[candidates[0].name][i] = false;
+                }
+            }
+        }
+
+        const services=[
+            {"name":"S1", "r":4.5, "c":1000},
+            {"name":"S2", "r":3, "c":1200},
+            {"name":"S3", "r":3.8, "c":800}
+        ];
+        func2(services, 15, 17, "c>=800"); // S3
+        func2(services, 11, 13, "r<=4"); // S3
+        func2(services, 10, 12, "name=S3"); // Sorry
+        func2(services, 15, 18, "r>=4.5"); // S1
+        func2(services, 16, 18, "r>=4"); // Sorry
+        func2(services, 13, 17, "name=S1"); // Sorry
+        func2(services, 8, 9, "c<=1500"); // S2
+
+
+        console.log("=== Task3 ===");
+        function func3(index){
+            let s = [];
+            let num = 25;
+            s.push(num);
+            for(let i = 1; i < index+1; i++){
+                if(i % 4 == 1){
+                    num -= 2;
+                    s.push(num);
+                }else if(i % 4 == 2){
+                    num -= 3;
+                    s.push(num);
+                }else if(i % 4 == 3){
+                    num += 1;
+                    s.push(num);
+                }else{
+                    num += 2;
+                    s.push(num);
+                }
+            }
+            console.log(s[index]);
+        }
+        func3(1); // print 23
+        func3(5); // print 21
+        func3(10); // print 16
+        func3(30); // print 6
+
+        console.log("=== Task4 ===");
+        function func4(sp, stat, n){
+            let candidates4 = [];
+            let allZero = [];
+            for(let i = 0; i < sp.length; i++){
+                if(stat[i] == "0"){
+                    allZero.push(i);
+                }
+            }
+            let solved = false;
+            for(let i = 0; i < stat.length; i++){
+                if(stat[i] == "0" && sp[i] >= n){
+                    candidates4.push(i);
+                    solved = true;
+                }
+            }
+            if(solved == true){
+                let minI = 0;
+                for(let i = 0; i < candidates4.length; i++){
+                    if(sp[candidates4[i]] < sp[candidates4[minI]]){
+                        minI = i;
+                    }
+                }
+                console.log(candidates4[minI]);
+            }else{
+                let diff_min = allZero[0];
+                let diff_min_diff = sp[0] - n;
+                if(diff_min_diff < 0){
+                    diff_min_diff = -diff_min_diff;
+                }
+                for(let i = 0; i < sp.length; i++){
+                    let diff = sp[i] - n;
+                    if(diff < 0){
+                        diff = -diff;
+                    }
+                    if(stat[i] == "0" && diff < diff_min_diff){
+                        diff_min = i;
+                    }
+                }
+                console.log(diff_min);
+            }
+
+        }
+        func4([3, 1, 5, 4, 3, 2], "101000", 2); // print 5
+        func4([1, 0, 5, 1, 3], "10100", 4); // print 4
+        func4([4, 6, 5, 8], "1000", 4); // print 2
+    </script>
+</body>
+</html>
