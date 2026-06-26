@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <link rel="stylesheet" type="text/css" href="./My_Website.css"/>
+    <link rel="stylesheet" type="text/css" href="./My_Website_main.css"/>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="navBar">
+        <div class="navTitle">My Website</div>
+        <div class="navMenu">
+            <div class="navMenu1">Item 1</div>
+            <div class="navMenu1">Item 2</div>
+            <div class="navMenu1">Item 3</div>
+            <div class="navMenu1">Item 4</div>
+        </div>
+        <div class="mobileNavBar" id="burgerId">
+            <img src="./tools_14098497.png"/>
+        </div>
+    </div>
+    
+    <div class="popupBack" id="popupBackId">
+        <div class="popupMenu">
+            <button class="popupClose" id="popupCloseId">✕</button>
+            <ul class="popWord">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+                <li>Item 4</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="welcome">
+        <div class="welcomeBanner">
+            Welcome to MyHome
+        </div>
+    </div>
+    
+    <div class="mainContent">
+        <div class="bars">
+            <div class="bar1 bar">
+                <img height="50px" width="80px" src="">
+                <div class="barword">載入中...</div>
+            </div>
+            <div class="bar2 bar">
+                <img height="50px" width="80px" src="">
+                <div class="barword">載入中...</div>
+            </div>
+            <div class="bar3 bar">
+                <img height="50px" width="80px" src="">
+                <div class="barword">載入中...</div>
+            </div>
+        </div>
+
+        <div class="grid-container" id="gridContainer">
+            </div>
+
+        <div class="btn-area">
+            <button id="loadMoreBtn">Load More</button>
+        </div>
+    </div>
+
+    <script>
+        const popupBackId = document.getElementById("popupBackId");
+        const burgerId = document.getElementById("burgerId");
+        const popupCloseId = document.getElementById("popupCloseId");
+
+        burgerId.addEventListener('click', () => { popupBackId.style.display = 'block'; });
+        popupCloseId.addEventListener('click', () => { popupBackId.style.display = 'none'; });
+        popupBackId.addEventListener('click', (e) => {
+            if (e.target === popupBackId) { popupBackId.style.display = 'none'; }
+        });
+
+        let dataNameAndImage = []; 
+        let currentIndex = 0;      
+
+        const gridContainer = document.getElementById("gridContainer");
+        const loadMoreBtn = document.getElementById("loadMoreBtn");
+        
+        Promise.all([
+            fetch("https://cwpeng.github.io/test/assignment-3-2").then(res => res.json()),
+            fetch("https://cwpeng.github.io/test/assignment-3-1").then(res => res.json())
+        ]).then(function(results) {
+            const dataImage = results[0].rows;
+            const dataInform = results[1].rows;
+
+            for(let i = 0; i < dataInform.length; i++){
+                for(let j = 0; j < dataImage.length; j++){
+                    if(dataInform[i].serial == dataImage[j].serial){
+                        let tempLinkArr = dataImage[j].pics.split("/", 4);
+                        let tempLink = "https://cwpeng.github.io/test" + "/" + tempLinkArr[1] + "/" + tempLinkArr[2] + "/" + tempLinkArr[3];
+                        
+                        
+                        let displayName = dataInform[i].sname;
+                        if (displayName.length > 7) {
+                            displayName = displayName.slice(0, 8) + "...";
+                        }
+                        
+                        dataNameAndImage.push({
+                            "name": displayName,
+                            "link": tempLink
+                        });
+                    }
+                }
+            }
+
+            const barElements = document.querySelectorAll(".bars .bar");
+            for(let i = 0; i < barElements.length; i++){
+                if(currentIndex >= dataNameAndImage.length) break;
+                const attraction = dataNameAndImage[currentIndex];
+                barElements[i].querySelector("img").src = attraction.link;
+                barElements[i].querySelector(".barword").textContent = attraction.name;
+                barElements[i].querySelector(".barword").style.fontSize = "18px";
+                barElements[i].querySelector(".barword").style.fontWeight = "500";
+                currentIndex++;
+            }
+
+            loadNextTenBlocks();
+         
+        }).catch(function(error) {
+            console.error("資料下載失敗：", error);
+        });
+
+        function createBlockElement(attraction) {
+            const blockDiv = document.createElement("div");
+            blockDiv.classList.add("contentImage");
+
+            const img = document.createElement("img");
+            img.src = attraction.link;
+
+            const starDiv = document.createElement("div");
+            starDiv.classList.add("star");
+            starDiv.textContent = "⭐";
+
+            const captionDiv = document.createElement("div");
+            captionDiv.classList.add("caption");
+
+            const capWordDiv = document.createElement("div");
+            capWordDiv.classList.add("capWord");
+            capWordDiv.textContent = attraction.name;
+            capWordDiv.style.fontSize = "18px";
+            capWordDiv.style.fontWeight = "500";
+
+            captionDiv.appendChild(capWordDiv);
+            blockDiv.appendChild(img);
+            blockDiv.appendChild(starDiv);
+            blockDiv.appendChild(captionDiv);
+
+            return blockDiv;
+        }
+
+        function loadNextTenBlocks() {
+            for (let i = 0; i < 10; i++) {
+                if (currentIndex >= dataNameAndImage.length) {
+                    loadMoreBtn.style.display = "none"; 
+                    break;
+                }
+                const block = createBlockElement(dataNameAndImage[currentIndex]);
+                gridContainer.appendChild(block);
+                currentIndex++;
+            }
+            
+            if (currentIndex >= dataNameAndImage.length) {
+                loadMoreBtn.style.display = "none";
+            }
+        }
+
+        loadMoreBtn.addEventListener("click", function() {
+            loadNextTenBlocks();
+        });
+    </script>
+</body>
+</html>
