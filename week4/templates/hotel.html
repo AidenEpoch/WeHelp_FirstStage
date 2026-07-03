@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>旅館資訊</title>
+    <link rel="stylesheet" href="./hotel.css">
+    <style>
+        body { font-family: Arial, sans-serif; 
+            text-align: center; 
+            padding-top: 50px; }
+
+
+        .info-box { border: 1px solid #ccc;
+                width: 600px;
+                margin: 40px auto;
+                border-radius: 5px;
+                overflow: hidden;
+                padding: 0; }
+                
+        a { color: #0066cc; 
+            text-decoration: underline; 
+            display: inline-block; 
+            font-size: 20px;
+            margin: 0;}
+
+        .upper {
+            background-color: #1e3246;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0;
+            width:100%;
+            height: 80px;
+            margin: 0;
+            display: flex;}
+
+
+        .upperWord{
+            font-size: 30px;
+            font-weight: bold;
+            color: white;}
+
+        .content {
+            padding: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="info-box">
+    <div class="upper">
+        <div class="upperWord">旅館的資訊</div>
+    </div>
+
+    <div class="content">
+        <p id="hotelInfo">資料讀取中，請稍候...</p>
+
+        <a href="/">返回首頁</a>
+    </div>
+</div>
+
+    <script>
+        const pathSegments = window.location.pathname.split('/');
+        const hotelId = pathSegments[pathSegments.length - 1];
+
+        fetch('/api/hotel/' + hotelId)
+            .then(response => response.json())
+            .then(result => {
+                const infoParagraph = document.getElementById("hotelInfo");
+                if (result.success) {
+                    const hotel = result.data;
+                    infoParagraph.innerText = `${hotel.name}、${hotel.eng_name}、${hotel.tel}`;
+                } else {
+                    infoParagraph.innerText = result.message; 
+                }
+            })
+            .catch(error => {
+                console.error("連線發生錯誤:", error);
+                document.getElementById("hotelInfo").innerText = "串接官方 API 失敗或網路連線錯誤";
+            });
+    </script>
+</body>
+</html>

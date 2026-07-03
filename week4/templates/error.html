@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>錯誤頁面</title>
+    <style>
+        body { font-family: Arial, sans-serif; 
+            text-align: center; 
+            padding-top: 50px; }
+
+        .error-box {  border: 1px solid #ccc;
+                        width: 400px;
+                        margin: 0 auto;
+                        border-radius: 5px;
+                        overflow: hidden;
+                        padding-bottom: 30px; }
+
+        .upper {
+                background-color: #1e3246;
+                text-align: center;
+                align-items: center;
+                justify-content: center;
+                padding: 20px 0;
+                width:100%;
+                height: 60px;
+                display: flex;}
+
+
+        .upperWord{
+                font-size: 30px;
+                font-weight: bold;
+                color: white;
+                padding-bottom: 20px;}
+
+        .errorText{
+            margin: 80px 0 30px 0;
+            font-size: 30px;}
+    </style>
+</head>
+<body>
+    <div class="error-box">
+        <div class="upper">
+            <div class="upperWord">失敗頁面</div>
+        </div>
+        <p id="errorText">帳號、或密碼輸入錯誤</p>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+    let errorMsg = urlParams.get('msg');
+
+    if (!errorMsg) {
+        errorMsg = "請輸入信箱和密碼";
+    }
+
+    // 顯示在畫面上
+    document.getElementById("errorText").innerText = errorMsg;
+
+    // popup
+    alert(errorMsg);
+    </script>
+</body>
+</html>

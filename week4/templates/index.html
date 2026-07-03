@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>首頁</title>
+    <style>
+        body { font-family: Arial, sans-serif; 
+                text-align: center; 
+                margin: 0; 
+                padding: 0; }
+
+        .header { background-color: #1e3246; 
+                  color: white; padding: 20px; 
+                  font-size: 24px; 
+                  font-weight: bold; }
+
+        .container { width: 350px; 
+                    margin: 30px auto; 
+                    border: 1px solid #ccc; 
+                    padding: 20px; 
+                    border-radius: 5px; }
+
+        .form-group { margin-bottom: 15px; 
+                      text-align: left; }
+
+        .form-group label { display: inline-block; 
+                            width: 50px; }
+
+        .form-group input[type="text"], 
+        .form-group input[type="password"] { width: 250px; padding: 5px; }
+        .checkbox-group { margin: 15px 0; }
+
+        button { padding: 5px 15px; font-size: 16px; cursor: pointer; }
+        hr { border: 0; border-top: 1px solid #ccc; margin: 30px 0; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        歡迎光臨，請輸入信箱密碼
+    </div>
+
+    <div class="container">
+        <h3>登入系統</h3>
+        <form id="loginForm" action="/login" method="POST">
+            <div class="form-group">
+                <label>信箱</label>
+                <input type="text" name="email">
+            </div>
+            <div class="form-group">
+                <label>密碼</label>
+                <input type="password" name="password">
+            </div>
+            <div class="checkbox-group">
+                <label><input type="checkbox" id="agreeCheckbox"> 同意條款</label>
+            </div>
+            <button type="submit">登入</button>
+        </form>
+
+        <hr>
+
+        <h3>取得旅館資訊</h3>
+        <div class="form-group">
+            <label>編號</label>
+            <input type="text" id="hotelIdInput">
+        </div>
+        <button type="button" onclick="searchHotel()">取得</button>
+    </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            var checkbox = document.getElementById("agreeCheckbox");
+            if (!checkbox.checked) {
+                event.preventDefault(); 
+                alert("請勾選同意條款");
+            }
+        });
+
+        function searchHotel() {
+            var idInput = document.getElementById("hotelIdInput").value.trim();
+            var isPositiveInteger = /^[1-9]\d*$/.test(idInput);
+            
+            if (!isPositiveInteger) {
+                alert("請輸入正整數");
+                return;
+            }
+            window.location.href = "/hotel/" + idInput;
+        }
+    </script>
+</body>
+</html>
