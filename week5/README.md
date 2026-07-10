@@ -23,6 +23,8 @@ time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
+![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task2_2.png)
+
 ### task3
 
 **INSERT a new row to the member table where name, email and password must be
