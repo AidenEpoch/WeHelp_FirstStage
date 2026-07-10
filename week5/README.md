@@ -80,3 +80,16 @@ SELECT *FROM member WHERE name LIKE '%es%';
 ```
 
 ![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task3_6.png)
+
+
+**SELECT rows where email equals to test@test.com and password equals to test**
+
+```sql
+SELECT *FROM member WHERE email = 'test@test.com' AND password = 'test';
+```
+
+**UPDATE data in name column to test2 where email equals to test@test.com**
+
+```sql
+UPDATE member SET name = 'test2' WHERE email = 'test@test.com';
+```
