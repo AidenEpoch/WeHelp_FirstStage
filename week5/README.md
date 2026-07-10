@@ -2,6 +2,6 @@
 
 <h3>task2</h3>
 
-```
-
+```sql
+CREATE DATABASE website;
 ```
