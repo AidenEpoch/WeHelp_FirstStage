@@ -20,3 +20,10 @@ follower_count INT NOT NULL DEFAULT 0 CHECK(follower_count >= 0),
 time DATE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 ```
+
+### task3
+
+```sql
+INSERT INTO member(name, email, password)VALUES(test, test@test.com, test);
+```
+
