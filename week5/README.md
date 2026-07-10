@@ -95,3 +95,5 @@ SELECT *FROM member WHERE email = 'test@test.com' AND password = 'test';
 ```sql
 UPDATE member SET name = 'test2' WHERE email = 'test@test.com';
 ```
+
+![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task3_8.png)
