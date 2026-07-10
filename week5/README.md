@@ -155,3 +155,44 @@ time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 FOREIGN KEY(member_id) REFERENCES member(id)
 );
 ```
+
+為了完成**task5**的操作，故創建message表格如下:
+![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task5_2.png)
+
+![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task5_1.png)
+
+**SELECT all messages, including sender names. We have to JOIN the member table
+to get that**
+
+```sql
+SELECT member.name, message.* FROM member INNER JOIN message ON member.id = message.member_id; 
+```
+
+![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task5_3.png)
+
+**SELECT all messages, including sender names, where sender email equals to
+test@test.com. We have to JOIN the member table to filter and get that**
+
+```sql
+SELECT member.name, message.* FROM member INNER JOIN message ON member.id = message.member_id WHERE member.email = 'test@test.com';
+```
+
+![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task5_4.png)
+
+**Use SELECT, SQL Aggregation Functions with JOIN statement, get the average like
+count of messages where sender email equals to test@test.com**
+
+```sql
+SELECT AVG(message.like_count) FROM message INNER JOIN member ON message.member_id = member.id WHERE member.email = 'test@test.com';
+```
+
+![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task5_5.png)
+
+**Use SELECT, SQL Aggregation Functions with JOIN statement, get the average like
+count of messages GROUP BY sender email**
+
+```sql
+SELECT member.email, AVG(message.like_count) FROM message INNER JOIN member ON message.member_id = member.id GROUP BY member.email;
+```
+
+![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task5_6.png)
