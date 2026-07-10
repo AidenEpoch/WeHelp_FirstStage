@@ -23,6 +23,9 @@ time DATE NOT NULL DEFAULT CURRENT_TIMESTAMP
 
 ### task3
 
+**INSERT a new row to the member table where name, email and password must be
+set to test, test@test.com, and test. INSERT additional 4 rows with arbitrary data**
+
 ```sql
 INSERT INTO member(name, email, password)VALUES(test, test@test.com, test);
 INSERT INTO member(name, email, password)VALUES(member1, member1@google.com, first);
@@ -31,3 +34,10 @@ INSERT INTO member(name, email, password)VALUES(yahooPerson, member3@yahoo.com, 
 INSERT INTO member(name, email, password)VALUES(googleMan, member4@google.com, google);
 ```
 
+**SELECT all rows from the member table**
+
+```sql
+SELECT *FROM member;
+```
+
+**SELECT all rows from the member table, in descending order of time**
