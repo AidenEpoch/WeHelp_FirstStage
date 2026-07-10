@@ -2,9 +2,13 @@
 
 ### task2
 
+** Create a new database named website
+
 ```sql
 CREATE DATABASE website;
 ```
+
+** Create a new table named member, in the website database
 
 ```sql
 CREATE TABLE member(
