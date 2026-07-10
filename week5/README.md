@@ -1,6 +1,6 @@
-## WeHelp assignment week5 
+# WeHelp assignment week5 
 
-### task2
+## task2
 
 **Create a new database named website**
 
@@ -25,7 +25,9 @@ time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 
 ![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task2_2.png)
 
-### task3
+***
+
+## task3
 
 **INSERT a new row to the member table where name, email and password must be
 set to test, test@test.com, and test. INSERT additional 4 rows with arbitrary data**
