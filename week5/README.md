@@ -38,6 +38,8 @@ INSERT INTO member(name, email, password)VALUES('member3', 'member3@google.com',
 INSERT INTO member(name, email, password)VALUES('member4', 'member4@google.com', 'forth');
 ```
 
+![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task3_1.png)
+
 **SELECT all rows from the member table**
 
 ```sql
