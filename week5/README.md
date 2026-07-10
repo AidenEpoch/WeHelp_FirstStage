@@ -53,3 +53,5 @@ SELECT *FROM member;
 ```sql
 SELECT *FROM member ORDER BY time DESC;
 ```
+
+![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task3_3.png)
