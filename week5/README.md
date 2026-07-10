@@ -138,3 +138,20 @@ SELECT AVG(t.follower_count) FROM (SELECT follower_count FROM member ORDER BY fo
 ```
 
 ![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task4_5.png)
+
+***
+
+## task5
+
+**Create a new table named message, in the website database. designed as below**
+
+```sql
+CREATE TABLE message(
+id INT PRIMARY KEY AUTO_INCREMENT,
+member_id INT NOT NULL,
+content VARCHAR(65535) NOT NULL,
+like_count INT CHECK(like_count >= 0) NOT NULL DEFAULT 0,
+time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+FOREIGN KEY(member_id) REFERENCES member(id)
+);
+```
