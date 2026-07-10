@@ -64,3 +64,11 @@ SELECT *FROM member ORDER BY time DESC LIMIT 1, 3;
 ```
 
 ![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task3_4.png)
+
+**SELECT rows where email equals to test@test.com**
+
+```sql
+SELECT *FROM member WHERE email = 'test@test.com';
+```
+
+![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task3_5.png)
