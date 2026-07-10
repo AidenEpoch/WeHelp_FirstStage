@@ -149,7 +149,7 @@ SELECT AVG(t.follower_count) FROM (SELECT follower_count FROM member ORDER BY fo
 CREATE TABLE message(
 id INT PRIMARY KEY AUTO_INCREMENT,
 member_id INT NOT NULL,
-content VARCHAR(65535) NOT NULL,
+content TEXT(65535) NOT NULL,
 like_count INT CHECK(like_count >= 0) NOT NULL DEFAULT 0,
 time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 FOREIGN KEY(member_id) REFERENCES member(id)
