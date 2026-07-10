@@ -99,3 +99,42 @@ UPDATE member SET name = 'test2' WHERE email = 'test@test.com';
 ```
 
 ![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task3_8.png)
+
+***
+
+## task4
+為了配合**task4**的操作，故將id 2 ~ id 5的follower_count之值修改如下:
+![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task4_1.png)
+
+**SELECT how many rows from the member table**
+
+```sql
+SELECT COUNT(*) FROM member;
+```
+
+![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task4_2.png)
+
+**SELECT the sum of follower_count of all the rows from the member table**
+
+```sql
+SELECT SUM(follower_count) FROM member;
+```
+
+![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task4_3.png)
+
+**SELECT the average of follower_count of all the rows from the member table**
+
+```sql
+SELECT AVG(follower_count) FROM member;
+```
+
+![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task4_4.png)
+
+**SELECT the average of follower_count of the first 2 rows, in descending order of
+follower_count, from the member table**
+
+```sql
+SELECT AVG(t.follower_count) FROM (SELECT follower_count FROM member ORDER BY follower_count DESC LIMIT 2) AS t;
+```
+
+![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task4_5.png)
