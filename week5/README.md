@@ -41,3 +41,7 @@ SELECT *FROM member;
 ```
 
 **SELECT all rows from the member table, in descending order of time**
+
+```sql
+SELECT *FROM member ORDER BY time DESC;
+```
