@@ -72,3 +72,11 @@ SELECT *FROM member WHERE email = 'test@test.com';
 ```
 
 ![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task3_5.png)
+
+**SELECT rows where name includes the es keyword**
+
+```sql
+SELECT *FROM member WHERE name LIKE '%es%';
+```
+
+![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task3_6.png)
