@@ -8,6 +8,8 @@
 CREATE DATABASE website;
 ```
 
+![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task2_1.png)
+
 **Create a new table named member, in the website database**
 
 ```sql
