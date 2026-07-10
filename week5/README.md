@@ -55,3 +55,12 @@ SELECT *FROM member ORDER BY time DESC;
 ```
 
 ![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task3_3.png)
+
+**SELECT total 3 rows, second to fourth, from the member table, in descending order
+of time. Note: it does not mean SELECT rows where id are 2, 3, or 4**
+
+```sql
+SELECT *FROM member ORDER BY time DESC LIMIT 1, 3;
+```
+
+![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task3_4.png)
