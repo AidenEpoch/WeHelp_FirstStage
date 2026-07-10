@@ -46,6 +46,8 @@ INSERT INTO member(name, email, password)VALUES('member4', 'member4@google.com',
 SELECT *FROM member;
 ```
 
+![image](https://github.com/AidenEpoch/WeHelp_FirstStage/blob/main/week5/image/task3_2.png)
+
 **SELECT all rows from the member table, in descending order of time**
 
 ```sql
