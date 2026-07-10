@@ -31,11 +31,11 @@ time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 set to test, test@test.com, and test. INSERT additional 4 rows with arbitrary data**
 
 ```sql
-INSERT INTO member(name, email, password)VALUES(test, test@test.com, test);
-INSERT INTO member(name, email, password)VALUES(member1, member1@google.com, first);
-INSERT INTO member(name, email, password)VALUES(member2, member2@google.com, second);
-INSERT INTO member(name, email, password)VALUES(member3, member3@google.com, third);
-INSERT INTO member(name, email, password)VALUES(member4, member4@google.com, forth);
+INSERT INTO member(name, email, password)VALUES('test', 'test@test.com', 'test');
+INSERT INTO member(name, email, password)VALUES('member1', 'member1@google.com', 'first');
+INSERT INTO member(name, email, password)VALUES('member2', 'member2@google.com', 'second');
+INSERT INTO member(name, email, password)VALUES('member3', 'member3@google.com', 'third');
+INSERT INTO member(name, email, password)VALUES('member4', 'member4@google.com', 'forth');
 ```
 
 **SELECT all rows from the member table**
