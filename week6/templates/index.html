@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', path='/style.css')}}" rel="stylesheet"/>
+    <title>首頁</title>
+</head>
+<body>
+    <div class="header">歡迎光臨，請註冊登入系統</div>
+    <div class="apply">
+        <div class="putMiddle" style="font-size: 20px; margin-bottom: 2px;">註冊帳號</div>
+            <form>
+                姓名<input type="text" id="signUpName" style="margin-bottom: 2px;"/>
+                <br/>
+                信箱<input type="text" id="signUpEmail" style="margin-bottom: 2px;"/>
+                <br/>
+                密碼<input type="password" id="signUpPassword" style="margin-bottom: 2px;"/>
+                <br/>
+                <button onclick="signUp()" type="button">註冊</button>
+            </form>
+    </div>
+    <div class="logIn">
+        <div class="putMiddle" style="font-size: 20px; margin-bottom: 2px;">登入系統</div>
+        <form>
+            信箱<input type="text" id="logEmail" style="margin-bottom: 2px;"/>
+            <br/>
+            密碼<input type="password" id="logPassword" style="margin-bottom: 2px;"/>
+            <br/>
+            <button onclick="logIn()" type="button">登入</button>
+        </form>
+    </div>
+
+    <script>
+        async function signUp(){
+            let name = document.querySelector("#signUpName").value;
+            let email = document.querySelector("#signUpEmail").value;
+            let password = document.querySelector("#signUpPassword").value;
+
+            if(name =="" || email == "" || password == ""){
+                alert("請仔細檢查是否仍有空格");
+                window.location = "/ohoh?msg=" + encodeURIComponent("請仔細檢查是否仍有空格");
+                return;
+            } else{
+                let response = await fetch("/signup", {
+                method: "POST",
+                body: JSON.stringify({"name": name, "email": email, "password": password})
+            });
+            let result = await response.json();
+            if(result.ok){
+                alert("註冊成功");
+                window.location = "/";
+            }else{
+                alert("重複的電子郵件");
+                window.location = "/ohoh?msg=" + encodeURIComponent("重複的電子郵件");
+            }
+            }
+        }
+
+        async function logIn(){
+            let email = document.querySelector("#logEmail").value;
+            let password = document.querySelector("#logPassword").value;
+            let response = await fetch("/login", {
+                method: "POST",
+                body: JSON.stringify({"email": email, "password": password})
+            })
+            let result = await response.json();
+            if(result.ok){
+                alert("登入成功");
+                window.location = "/member";
+            }else{
+                alert("帳號、或密碼輸入錯誤");
+                window.location = "/ohoh?msg=" + encodeURIComponent("帳號、或密碼輸入錯誤");
+            }
+        }
+    </script>
+</body>
+</html>
