@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', path='/style.css')}}" rel="stylesheet"/>
+    <title>會員頁</title>
+</head>
+<body>
+    <div class="header">歡迎光臨，這是會員頁</div>
+    <div class="apply" style="font-size: 20px; height: 60px;">{{name}}，歡迎光臨登入系統</div>
+    <div class="apply" style="height: 20px;">
+        <a style="text-decoration: underline; font-size: 20px;" href="/logout">登出系統</a>
+    </div>
+
+    <br>
+    <br>
+    <div class="apply">
+        <div style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">MCP伺服器設定</div>
+        <div>請使用 http://127.0.0.1:8000/mcp/ 網址</div>
+        <div>點擊產生 Token 取得金鑰</div>
+        <button type="button" onclick="generateToken()" style="margin-top: 10px;">產生 Token</button>
+        <div id="token" style="font-size: 18px;"></div>
+    </div>
+
+    <br>
+
+    <div class="apply">
+        <div style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">快來留言吧</div>
+        <form>
+            內容 <input type="text" id="msgContent"/>
+            <br>
+            <button type="button" onclick="postMessage()" style="margin-top: 10px;">送出</button>
+        </form>
+    </div>
+
+    <div class="apply" id="messageBoard" style="font-size: 18px; text-align: left; width: 300px; margin: 0 auto;"></div>
+
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            loadMessages();
+        });
+
+        async function loadMessages(){
+            let response = await fetch("/api/message");
+            let result = await response.json();
+            if (result.ok) {
+                let board = document.querySelector("#messageBoard");
+                board.innerHTML = "";
+
+                result.data.forEach(msg => {
+                    let div = document.createElement("div");
+                    div.style.marginBottom = "10px";
+                    
+                    div.textContent = `${msg.name}: ${msg.content} `;
+                    
+                    if (msg.self) {
+                        let delBtn = document.createElement("button");
+                        delBtn.textContent = "X";
+                        delBtn.style.marginLeft = "5px";
+                        delBtn.style.cursor = "pointer";
+                        delBtn.onclick = () => deleteMessage(msg.id);
+                        div.appendChild(delBtn);
+                    }
+               
+                    board.appendChild(div);
+                });
+            }
+        }
+
+
+        async function postMessage(){
+            let contentInput = document.querySelector("#msgContent");
+            let content = contentInput.value;
+            let response = await fetch("/api/message", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({"content": content})
+            })
+            let result = await response.json();
+            if (result.ok) {
+                contentInput.value = ""; 
+                loadMessages();
+            } else {
+                alert("留言失敗");
+            }
+
+        }
+
+
+        async function deleteMessage(messageId) {
+            let isConfirm = confirm("確定要刪除這則留言嗎？");
+            if (!isConfirm) return; 
+            
+            let response = await fetch(`/api/message/${messageId}`, {
+                method: "DELETE"
+            });
+            let result = await response.json();
+            
+            if (result.ok) {
+                loadMessages();
+            } else {
+                alert("刪除失敗");
+            }
+        }
+
+        async function generateToken(){
+            let tokenContent = document.querySelector("#token")
+            let response = await fetch("/api/token", {
+                method: "PUT"
+            })
+            let result = await response.json();
+            if(result.ok){
+                tokenContent.textContent = `${result.token}`;
+            }else{
+                alert("取得 Token 失敗")
+            }
+        }
+    </script>
+</body>
+</html>
